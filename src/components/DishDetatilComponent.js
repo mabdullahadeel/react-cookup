@@ -6,6 +6,18 @@ import { Card, CardImg, CardImgOverlay, CardBody, CardText, CardTitle } from 're
 class DishDetail extends Component {
     constructor(props) {
         super(props);
+
+        // Checking the pattern how react makes calls to different parts of the applicaion
+        console.log("constructor from the DishDetail Component is called!");
+
+    }
+
+    // This function is always called by react while rendering the DOM
+    componentDidMount() {
+        console.log("componentDidMount called in DishDetailComponent!");
+    }
+    componentDidUpdate() {
+        console.log("componentWillMount called from DishDetailComponent!");
     }
 
     renderDish(dish) {
@@ -25,11 +37,11 @@ class DishDetail extends Component {
             );
     }
 
-    renderComments(comments) {
-        if (comments.length != 0 || comments != null) {
+    renderComments(selectedDishComments) {
+        if (selectedDishComments != null) {
             const options = { year: 'numeric', month: 'long', day: 'numeric' }
             return (
-                this.props.comments.map((oneComment) => {
+                selectedDishComments.comments.map((oneComment) => {
                     return (
                         <div key={oneComment.id}>
                             <li className="list-unstyled">
@@ -51,13 +63,15 @@ class DishDetail extends Component {
     render() {
 
         return (
-            <div className="row">
-                <div className="col-12 col-md-5 m-1">{this.renderDish(this.props.selectedDishFromMenu)}</div>
-                <div className="col-12 col-md-5 m-1">
-                    <h4>Comments</h4>
-                    {this.renderComments(this.props.comments)}
-                </div>
-            </div >
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 col-md-5 m-1">{this.renderDish(this.props.dish)}</div>
+                    <div className="col-12 col-md-5 m-1">
+                        {this.props.dish != null ? <h4>Comments</h4> : <div></div>}
+                        {this.renderComments(this.props.dish)}
+                    </div>
+                </div >
+            </div>
         )
     }
 }

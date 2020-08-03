@@ -43,6 +43,13 @@ export const DISHES =
                     comment: "It's your birthday, we're gonna party!",
                     author: "25 Cent",
                     date: "2011-12-02T17:57:28.556094Z"
+                },
+                {
+                    id: 5,
+                    rating: 4,
+                    comment: "Sometimes it is great and sometimes they just magro utarty hain!",
+                    author: "Abdullah Sial",
+                    date: "2020-12-02T17:57:28.556094Z"
                 }
             ]
         },
