@@ -18,22 +18,13 @@ class Main extends Component {
             dishes: DISHES,
             selectedDish: null
         }
-        // Checking the life-cycle of the calls by react while rendering the page
-        console.log("Constructor from the MainComponent is called!");
     };
 
-    onDishSelect(dishId) {
-        this.setState({ selectedDish: dishId });
-    }
-
-    // This function is always called by react while rendering the DOM
-    componentDidMount() {
-        console.log("componentDidMount called in MainComponent!")
-    }
+    onDishSelect(dish) {
+        this.setState({ selectedDish: dish });
+    };
 
     render() {
-        // Checking the life-cycle of the calls by react while rendering the page
-        console.log("render function from MainComponent is called!");
         return (
             <div className="App">
                 {/* Adding the Navbar from the reactstrap based Bootstrap */}
@@ -44,7 +35,7 @@ class Main extends Component {
                 </Navbar>
                 <Menu dishes={this.state.dishes}
                     onClick={(dishId) => this.onDishSelect(dishId)} />
-                <DishDetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} />
+                {this.state.selectedDish != null ? < DishDetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} /> : <div></div>}
             </div>
         );
     }
