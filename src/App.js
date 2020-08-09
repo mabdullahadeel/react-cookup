@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+
+// importing internal component to enable routing in the react application
+import { BrowserRouter } from 'react-router-dom';
+
 import './App.css';
 
 // importing components that has been created
@@ -8,9 +12,11 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Main />
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Main />
+        </div>
+      </BrowserRouter>
     );
   }
 
