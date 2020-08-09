@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-// importing react based components from bootstrap that are already made for reuse
-import { Navbar, NavbarBrand } from 'reactstrap';
-
 // importing components that has been created
 import Menu from './MenuComponent';
 import DishDetail from './DishDetatilComponent';
+import Header from './HeaderComponent';
+import Footer from './FooterComponent';
 
 // imorting dishes information from a separate file in the dihese folder
 import { DISHES } from '../shared/dishes';
@@ -27,15 +26,11 @@ class Main extends Component {
     render() {
         return (
             <div className="App">
-                {/* Adding the Navbar from the reactstrap based Bootstrap */}
-                <Navbar dark color="primary">
-                    <div className="container">
-                        <NavbarBrand href="/">My First React Application</NavbarBrand>
-                    </div>
-                </Navbar>
+                <Header />
                 <Menu dishes={this.state.dishes}
                     onClick={(dishId) => this.onDishSelect(dishId)} />
                 {this.state.selectedDish != null ? < DishDetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} /> : <div></div>}
+                <Footer />
             </div>
         );
     }
