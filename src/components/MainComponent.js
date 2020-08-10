@@ -6,9 +6,13 @@ import Menu from './MenuComponent';
 import DishDetail from './DishDetatilComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
+import Contact from './ContactComponent';
 
 // imorting dishes information from a separate file in the dihese folder
 import { DISHES } from '../shared/dishes';
+import { COMMENTS } from '../shared/comments';
+import { LEADERS } from '../shared/leaders';
+import { PROMOTIONS } from '../shared/promotions';
 import { render } from '@testing-library/react';
 
 //Routing funtionality
@@ -19,6 +23,10 @@ class Main extends Component {
         super(props);
         this.state = {
             dishes: DISHES,
+            comments: COMMENTS,
+            leader: LEADERS,
+            promotions: PROMOTIONS,
+
             selectedDish: null
         };
     };
@@ -30,7 +38,10 @@ class Main extends Component {
     render() {
         const HomePage = () => {
             return (
-                <Home />
+                // Only renders the dishes which are featured
+                <Home dish={this.state.dishes.filter((dish) => dish.featured)[0]}
+                    promotion={this.state.promotions.filter((promo) => promo.featured)[0]}
+                    leader={this.state.leader.filter((theLeader) => theLeader.featured)[0]} />
             )
         }
         return (
@@ -40,6 +51,7 @@ class Main extends Component {
                     <Route path="/home" component={HomePage} />
                     {/* If we need to pass props to the componet we use following approach of Route */}
                     <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)} />} />
+                    <Route path="/contact" component={Contact} />
                     {/* If URL path does not match anything */}
                     <Redirect to="/home" />
                 </Switch>
