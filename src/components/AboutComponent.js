@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import RenderLeader from './RenderLeader';
 
 function About(props) {
+
     return (
         <div className="container">
             <div className="row">
