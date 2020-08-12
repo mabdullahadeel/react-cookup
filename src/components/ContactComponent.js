@@ -242,7 +242,7 @@ class Contact extends Component {
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur('message')}
                                         valid={errors.message === ''}
-                                        invalid={errors.message !== ''} /> />
+                                        invalid={errors.message !== ''} />
                                     <FormFeedback>{errors.message}</FormFeedback>
 
                                 </Col>

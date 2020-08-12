@@ -17,7 +17,7 @@ function RenderHomeCard({ item }) {
 const Home = ({ dish, promotion, leaders }) => {
     return (
         <div className="container">
-            <dic className="row align-item-start">
+            <div className="row align-item-start">
                 <div className="col-12 col-md m-1">
                     <RenderHomeCard item={dish} />
                 </div>
@@ -27,7 +27,7 @@ const Home = ({ dish, promotion, leaders }) => {
                 <div className="col-12 col-md m-1">
                     <RenderHomeCard item={leaders} />
                 </div>
-            </dic>
+            </div>
         </div>
     )
 };
