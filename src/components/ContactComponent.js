@@ -6,6 +6,25 @@ import {
 } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
+// Validator functions
+const required = (value) => value && value.length; // Error for the requirement of a certain field
+const maxLength = (len) => (value) => !(value) || (value.length <= len); // !(value) checks foe empty string // Checkibg the maximum length is less then the rovided number
+const minLenght = (len) => (value) => (value) && (value.length >= len); // Checking the minimum lengtht meets the certain specified rewuirements
+const isNumber = (value) => !isNaN(Number(value)); //Check if the provided value os a number or not
+// Using regular expressions to check if the provided email is a valid email with correct format
+const isValidEmail = (email) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
+// Regular Expression explanation ==> 
+{/* 
+    /^ ==> initialize the regular expression
+    [A-Z0-9] ==> it starts with the letter between A to Z and can have numbers as well
+    ._%+- ==> may or may not have these characters
+    +@ ==> should have an @ symbol at that place
+    .- ==> the A-Z or 0-9 can occure at any number of times
+    {2,4} ==> At least 2 or maximum of 4 characters e.g .com .org etc
+
+    Note:
+    "." ==> ( period, dot or fullstop) provided that it is not the first or last character and it will not come one after the other.
+*/}
 
 class Contact extends Component {
     constructor(props) {
@@ -75,8 +94,24 @@ class Contact extends Component {
                                         className='form-control'
                                         name='firstName'
                                         placeholder="Fist Name"
+                                        // validations stuff
+                                        validators={{
+                                            required, minLenght: minLenght(3), maxLength: maxLength(15),
+                                        }}
                                     />
-                                    {/* Displaying error messages */}
+                                    {/* Displaying react-redux error messages */}
+                                    <Errors
+                                        className='text-danger'
+                                        model='.firstName'
+                                        show='touched' // only show errors if the field is touched
+                                        messages={{
+                                            // renders messages of the validator functions retuen "true"
+                                            required: 'Required! ',
+                                            minLenght: "The first name should contain at least 3 characters",
+                                            maxLength: "Max. 15 characters are allowed for the first name",
+                                        }}
+                                    />
+
                                 </Col>
                             </Row>
 
@@ -87,6 +122,22 @@ class Contact extends Component {
                                         className='form-control'
                                         name='lastName'
                                         placeholder="Last Name"
+                                        // validation stuff
+                                        validators={{
+                                            required, minLenght: minLenght(3), maxLength: maxLength(15),
+                                        }}
+                                    />
+                                    {/* Displaying react-redux error messages */}
+                                    <Errors
+                                        className='text-danger'
+                                        model='.lastName'
+                                        show='touched' // only show errors if the field is touched
+                                        messages={{
+                                            // renders messages of the validator functions retuen "true"
+                                            required: 'Required! ',
+                                            minLenght: "The last name should contain at least 3 characters",
+                                            maxLength: "Max. 15 characters are allowed for the last name",
+                                        }}
                                     />
                                 </Col>
                             </Row>
@@ -98,6 +149,24 @@ class Contact extends Component {
                                         className='form-control'
                                         name='telNumber'
                                         placeholder="Contact Number"
+                                        // validation stuff
+                                        validators={{
+                                            required, minLenght: minLenght(3),
+                                            maxLength: maxLength(15), isNumber
+                                        }}
+                                    />
+                                    {/* Displaying react-redux error messages */}
+                                    <Errors
+                                        className='text-danger'
+                                        model='.telNumber'
+                                        show='touched' // only show errors if the field is touched
+                                        messages={{
+                                            // renders messages of the validator functions retuen "true"
+                                            required: 'Required! ',
+                                            minLenght: "The number should contain at least 2 characters.",
+                                            maxLength: "Max. 15 characters are allowed for telephone number.",
+                                            isNumber: "The input might contain a letter. Contact numbers does not contain letters."
+                                        }}
                                     />
                                 </Col>
                             </Row>
@@ -109,7 +178,20 @@ class Contact extends Component {
                                         className='form-control'
                                         name='email'
                                         placeholder="email address - example@example.com"
+                                        //validatin stuff
+                                        validators={{
+                                            required, isValidEmail,
+                                        }}
                                     />
+                                    {/* react-redux validation */}
+                                    <Errors
+                                        className="text-danger"
+                                        model='.email'
+                                        show='touched'
+                                        messages={{
+                                            required: "Required! ",
+                                            isValidEmail: "The email format is invalid!",
+                                        }} />
                                 </Col>
                             </Row>
 
@@ -141,6 +223,19 @@ class Contact extends Component {
                                         placeholder="Start typing....."
                                         rows='12'
                                         className='form-control'
+
+                                        // Validation stuff
+                                        validators={{
+                                            required,
+                                        }}
+                                    />
+                                    <Errors
+                                        className="text-danger"
+                                        model=".message"
+                                        show='touched'
+                                        messages={{
+                                            required: "Required! "
+                                        }}
                                     />
                                 </Col>
                             </Row>
