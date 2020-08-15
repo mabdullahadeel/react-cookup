@@ -15,6 +15,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 // Redux Store related stuff
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+//importing the action creators
+import { addComment } from '../redux/ActionCreators';
 // react itself calls function with the name mapSateToProps in order to load it from react-redux-store
 const mapStateToProps = state => {
     return {
@@ -24,12 +26,13 @@ const mapStateToProps = state => {
         leaders: state.leaders
     }
 }; // with this, all the data from the redux-store is available in "props"
+// The following functin creates a JS object using prespecified action creators and retun it
+const mapDispatchToProps = (dispatch) => ({
+    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+});
 
 
 class Main extends Component {
-    constructor(props) {
-        super(props);
-    };
 
     render() {
         const HomePage = () => {
@@ -47,7 +50,8 @@ class Main extends Component {
             return (
                 // "parasInt will get the number from URL and convert it into the base 10 binart digit" 
                 <DishDetail dish={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0]}
-                    comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))} />
+                    comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
+                    addComment={this.props.addComment} />
             )
         }
 
@@ -72,4 +76,4 @@ class Main extends Component {
 }
 
 // To connect the component to react store
-export default withRouter(connect(mapStateToProps)(Main)); // we use "withRouter for the react applications having routeing between different pages"
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main)); // we use "withRouter for the react applications having routeing between different pages"

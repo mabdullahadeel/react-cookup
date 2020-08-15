@@ -76,8 +76,7 @@ class CommentForm extends Component {
 
     handleCommentSubmission(values) {
         this.toggleCommentModal();
-        console.log("Current State is : " + JSON.stringify(values));
-        alert("Current State is : " + JSON.stringify(values));
+        this.props.addComment(this.props.dishId, values.rating, values.fullName, values.message)
     };
 
     render() {
@@ -199,8 +198,10 @@ const DishDetail = (props) => {
                         {props.dish != null ? <h4>Comments</h4> : <div></div>}
                         <RenderComments selectedDishComments={props.comments} />
 
-                        {/* Rendiering the Button and form to add the Comments */}
-                        <CommentForm />
+                        {/* Rendering the Button and form to add the Comments */}
+                        <CommentForm
+                            addComment={props.addComment}
+                            dishId={props.dish.id} />
                     </div>
                 </div >
             </div >
