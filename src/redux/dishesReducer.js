@@ -1,6 +1,4 @@
 import * as ActionTypes from './ActionTypes';
-import { DISHES } from '../shared/dishes';
-
 
 export const DishesReducer = (state = {
     isLoading: true,

@@ -18,9 +18,9 @@ import { connect } from 'react-redux';
 //adding the actions fuctionality on form submission
 import { actions } from 'react-redux-form';
 //importing the action creators
-import { addComment, fetchDishes } from '../redux/ActionCreators';
+import { addComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
 // react itself calls function with the name mapSateToProps in order to load it from react-redux-store
-const mapStateToProps = state => {
+const mapStateToProps = state => { // the state argument retunrs the whole redux store
     return {
         dishes: state.dishes,
         comments: state.comments,
@@ -31,8 +31,11 @@ const mapStateToProps = state => {
 // The following functin creates a JS object using prespecified action creators and retun it
 const mapDispatchToProps = (dispatch) => ({
     addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
-    fetchDishes: () => { dispatch(fetchDishes()) },
-    resetFeedbackForm: () => { dispatch(actions.reset('feedback')) }
+    fetchDishes: () => { dispatch(fetchDishes()) }, //fetching the dishes
+    fetchComments: () => { dispatch(fetchComments()) }, //fetching the comments
+    fetchPromos: () => { dispatch(fetchPromos()) }, //fetching the promotions
+
+    resetFeedbackForm: () => { dispatch(actions.reset('feedback')) } // react-redux-form revisite
 });
 
 
@@ -40,18 +43,26 @@ class Main extends Component {
 
     // calling a react life-cycle method which is called every time the component gets mounted into the view
     componentDidMount() {
-        this.props.fetchDishes();
+        this.props.fetchDishes(); // fetching the dishes at the end of application mount
+        this.props.fetchComments(); // fetching the comments at the end of application mount
+        this.props.fetchPromos(); // fetching the promotions at the end of application mount
     };
 
     render() {
         const HomePage = () => {
             return (
                 // Only renders the dishes which are featured
-                <Home dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
+                <Home
+                    // passing the dishes to the child component after fetching from the store
+                    dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
                     dishesLoading={this.props.dishes.isLoading}
                     dishesFetchErrorMessages={this.props.dishes.errorMessages}
 
-                    promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
+                    // passing the dishes to the child component after fetching from the store
+                    promotion={this.props.promotions.promotions.filter((promo) => promo.featured)[0]}
+                    promosLoading={this.props.promotions.isLoading}
+                    promosFetchErrorMessages={this.props.promotions.errorMessages}
+
                     leaders={this.props.leaders.filter((theLeader) => theLeader.featured)[0]}
                 />
             )
@@ -66,7 +77,9 @@ class Main extends Component {
                     isLoading={this.props.dishes.isLoading}
                     fetchErrorMessages={this.props.dishes.errorMessages}
 
-                    comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
+                    // fetching the comments from the redux-store and provide it to the child components
+                    comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
+                    commentsFetchErrorMessages={this.props.comments.errorMessages}
                     addComment={this.props.addComment} />
             )
         }

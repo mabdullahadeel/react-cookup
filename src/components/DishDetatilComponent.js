@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
 import { LoadingSpinner } from './LoadingComponent'
+import { BaseURL } from '../shared/baseURL'; // importing the main url for the backend server to fetch the dishes
+
 
 // separating the dish detail in a separate component
 function RenderDish({ dish }) {
@@ -17,7 +19,7 @@ function RenderDish({ dish }) {
     if (dish != null)
         return (
             <Card>
-                <CardImg top src={dish.image} alt={dish.name} />
+                <CardImg top src={BaseURL + dish.image} alt={dish.name} />
                 <CardBody>
                     <CardTitle><h2>{dish.name}</h2></CardTitle>
                     <CardText>{dish.description}</CardText>

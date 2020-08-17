@@ -1,15 +1,16 @@
 import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
-
 import { LoadingSpinner } from './LoadingComponent'; // Loading Spinner while the dish is loading
+
+import { BaseURL } from '../shared/baseURL'; // importing the main url for the backend server to fetch the dishes
 
 // Making a component That will be responsible for the Menue Bar of the Page
 function RenderMenuItem({ dish }) {
     return (
         <Link to={`menu/${dish.id}`}>
             <Card >
-                <CardImg width="100%" src={dish.image} alt={dish.name} />
+                <CardImg width="100%" src={BaseURL + dish.image} alt={dish.name} />
                 <CardImgOverlay>
                     <CardTitle>{dish.name}</CardTitle>
                 </CardImgOverlay>

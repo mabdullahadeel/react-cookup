@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardBody, CardTitle, CardText, CardImg, CardSubtitle } from 'reactstrap';
 import { LoadingSpinner } from './LoadingComponent'; //Loading Spinner
+import { BaseURL } from '../shared/baseURL'; // importing the main url for the backend server to fetch the dishes
 
 function RenderHomeCard({ item, isLoading, errorMessages }) {
     if (isLoading) {
@@ -16,7 +17,7 @@ function RenderHomeCard({ item, isLoading, errorMessages }) {
     else
         return (
             <Card>
-                <CardImg src={item.image} alt={item.name} />
+                <CardImg src={BaseURL + item.image} alt={item.name} />
                 <CardBody>
                     <CardTitle><h4>{item.name}</h4></CardTitle>
                     {item.designation ? <CardSubtitle>{item.designation}</CardSubtitle> : null}
@@ -37,7 +38,10 @@ const Home = (props) => {
                     />
                 </div>
                 <div className="col-12 col-md m-1">
-                    <RenderHomeCard item={props.promotion} />
+                    <RenderHomeCard item={props.promotion}
+                        isLoading={props.promosLoading}
+                        errorMessages={props.promosFetchErrorMessages}
+                    />
                 </div>
                 <div className="col-12 col-md m-1">
                     <RenderHomeCard item={props.leaders} />

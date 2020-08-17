@@ -1,14 +1,19 @@
-import { COMMENTS } from '../shared/comments';
 import * as ActionTypes from './ActionTypes';
 
-export const CommentsReducer = (state = COMMENTS, action) => {
+export const CommentsReducer = (state = {
+    erroMessages: null,
+    comments: [],
+}, action) => {
     switch (action.type) { // Switch Case Default Statement
+        case ActionTypes.ADD_COMMENTS:
+            return { ...state, errorMessages: null, comments: action.payload }
+        case ActionTypes.COMMENT_FAILED:
+            return { ...state, errorMessages: action.payload, commetns: [] }
         case ActionTypes.ADD_COMMENT:
             let comment = action.payload;
-            comment.id = state.length;
+            comment.id = state.comments.length;
             comment.date = new Date().toISOString();
-
-            return state.concat(comment); // concat add an additional item at the end of the array an store it as a separate array
+            return { ...state, comments: state.comments.concat(comment) }
         default:
             return state;
     }
