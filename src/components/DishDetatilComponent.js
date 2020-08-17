@@ -9,9 +9,9 @@ import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
+import { LoadingSpinner } from './LoadingComponent'
 
 // separating the dish detail in a separate component
-
 function RenderDish({ dish }) {
     console.log(dish);
     if (dish != null)
@@ -176,7 +176,25 @@ class CommentForm extends Component {
 
 
 const DishDetail = (props) => {
-    if (props.dish != null)
+    if (props.isLoading) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <LoadingSpinner />
+                </div>
+            </div>
+        );
+    }
+    else if (props.fetchErrorMessages) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <h4>{props.fetchErrorMessages}</h4>
+                </div>
+            </div>
+        );
+    }
+    else if (props.dish != null)
         return (
             <div className="container">
                 <div className="row">
