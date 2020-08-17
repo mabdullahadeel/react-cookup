@@ -4,7 +4,7 @@ import {
     Breadcrumb, BreadcrumbItem,
     Input, Button, Label, Col, Row,
 } from 'reactstrap';
-import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Control, Form, Errors, actions } from 'react-redux-form';
 
 // Validator functions
 const required = (value) => value && value.length; // Error for the requirement of a certain field
@@ -37,6 +37,7 @@ class Contact extends Component {
     handleSubmission(values) {
         console.log("Current State is : " + JSON.stringify(values));
         alert("Current State is : " + JSON.stringify(values));
+        this.props.resetFeedbackForm()
     }
 
 
@@ -86,7 +87,7 @@ class Contact extends Component {
                     </div>
                     <div className="col-12 col-md-9">
 
-                        <LocalForm onSubmit={(value) => this.handleSubmission(value)}>
+                        <Form model='feedback' onSubmit={(value) => this.handleSubmission(value)}>
                             <Row className='form-group'>
                                 <Label htmlFor='firstName' md={2}>First Name</Label>
                                 <Col md={10}>
@@ -245,7 +246,7 @@ class Contact extends Component {
                                     <Button type='submit' color='primary'>Send Feedback</Button>
                                 </Col>
                             </Row>
-                        </LocalForm>
+                        </Form>
                     </div>
                 </div>
 

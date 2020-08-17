@@ -15,6 +15,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 // Redux Store related stuff
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+//adding the actions fuctionality on form submission
+import { actions } from 'react-redux-form';
 //importing the action creators
 import { addComment, fetchDishes } from '../redux/ActionCreators';
 // react itself calls function with the name mapSateToProps in order to load it from react-redux-store
@@ -29,7 +31,8 @@ const mapStateToProps = state => {
 // The following functin creates a JS object using prespecified action creators and retun it
 const mapDispatchToProps = (dispatch) => ({
     addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
-    fetchDishes: () => { dispatch(fetchDishes()) }
+    fetchDishes: () => { dispatch(fetchDishes()) },
+    resetFeedbackForm: () => { dispatch(actions.reset('feedback')) }
 });
 
 
@@ -77,7 +80,7 @@ class Main extends Component {
                     <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} />} />
                     <Route exact path="/about" component={() => <About leaders={this.props.leaders} />} />
                     <Route path='/menu/:dishId' component={DishWithId} />
-                    <Route path="/contact" component={Contact} />
+                    <Route path="/contact" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
                     {/* If URL path does not match anything */}
                     <Redirect to="/home" />
                 </Switch>
