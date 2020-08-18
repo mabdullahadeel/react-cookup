@@ -11,20 +11,24 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 
 import { LoadingSpinner } from './LoadingComponent'
 import { BaseURL } from '../shared/baseURL'; // importing the main url for the backend server to fetch the dishes
-
+import { FadeTransform, Fade, Stagger } from 'react-animation-components'; // Animation related stuff
 
 // separating the dish detail in a separate component
 function RenderDish({ dish }) {
     console.log(dish);
     if (dish != null)
         return (
-            <Card>
-                <CardImg top src={BaseURL + dish.image} alt={dish.name} />
-                <CardBody>
-                    <CardTitle><h2>{dish.name}</h2></CardTitle>
-                    <CardText>{dish.description}</CardText>
-                </CardBody>
-            </Card>
+            <FadeTransform in transformProps={{
+                exitTransform: 'scale(0.5) translateY(-50%)'
+            }}>
+                <Card>
+                    <CardImg top src={BaseURL + dish.image} alt={dish.name} />
+                    <CardBody>
+                        <CardTitle><h2>{dish.name}</h2></CardTitle>
+                        <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            </FadeTransform>
         );
     else
         return (
@@ -36,23 +40,27 @@ function RenderComments({ selectedDishComments }) {
     if (selectedDishComments != null) {
         const options = { year: 'numeric', month: 'long', day: 'numeric' }
         return (
-            selectedDishComments.map((oneComment) => {
-                return (
-                    <div key={oneComment.id}>
-                        <li className="list-unstyled">
-                            <li>{oneComment["comment"]}</li>
-                            <p>-- {oneComment.author}, {new Date(oneComment.date).toLocaleDateString('en-US', options)}</p>
-                        </li>
-                    </div>
-                )
-            })
-        );
+            <Stagger in>
+                {selectedDishComments.map((comment) => {
+                    return (
+                        <Fade in>
+                            <li key={comment.id} className='list-unstyled'>
+                                <p>{comment.comment}</p>
+                                <p>-- {comment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</p>
+                            </li>
+                        </Fade>
+                    );
+                })}
+            </Stagger>
+        )
     }
     else
         return (
             <div></div >
         )
-};
+
+
+}
 
 // Comment Form Validation
 // Validator functions
