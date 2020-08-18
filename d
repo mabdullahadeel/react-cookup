@@ -1,0 +1,22 @@
+[33m2a10460[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Posting comment to the server and including it to the store and db
+[33mf0124c8[m Fetching data from the server
+[33m892adfb[m react-redux-form revisited
+[33mc14d0ab[m Thunk middleware and logger application with redux
+[33m1daafdd[m redux actions
+[33meb78657[m Combining Reducers
+[33md04e531[m react-redux implimentations & Week 3 Exercise Done
+[33ma2aea16[m react-redux-form validation
+[33m22ee6da[m react-redux-form
+[33mf855e9d[m Uncontrolled user login form
+[33meabd16b[m Form Validations Done!
+[33m51f5dff[m Integrated form on the About Us page
+[33md242e16[m About Us page and Exercise 2 Done!
+[33m7e61232[m Single Page Application (SPA) PART 1
+[33m6d5a84e[m React Routers Implementation
+[33m02d89b6[m Header & Footer added via separate respective Components
+[33m7f0905e[m Converted all the class base components to functional components and apply presentatinal component
+[33madc9699[m Update code to observe life-cycle methods of React (How react calls different parts of application) display date in a more readable format inside DishDetailComponent.
+[33me2cbbe3[m Week 1 Peer-graded Assignment 1 Done!
+[33mee007d6[m Week 1 Exercise 1 React Components Part 2
+[33m9ac71c8[m First Exercise Week 1 Done
+[33m7aec97d[m Initial commit

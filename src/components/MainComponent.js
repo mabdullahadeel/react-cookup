@@ -8,6 +8,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
+import { TransitionGroup, CSSTransition } from 'react-transition-group'; // animation related stuff
 
 //Routing funtionality
 import { Switch, Route, Redirect } from 'react-router-dom';
@@ -87,18 +88,23 @@ class Main extends Component {
         return (
             <div className="App">
                 <Header />
-                <Switch>
-                    <Route path="/home" component={HomePage} />
-                    {/* If we need to pass props to the componet we use following approach of Route */}
-                    <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} />} />
-                    <Route exact path="/about" component={() => <About leaders={this.props.leaders} />} />
-                    <Route path='/menu/:dishId' component={DishWithId} />
-                    <Route path="/contact" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
-                    {/* If URL path does not match anything */}
-                    <Redirect to="/home" />
-                </Switch>
+                {/* Applying trasitions using react-transition-group */}
+                <TransitionGroup>
+                    <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
+                        <Switch>
+                            <Route path="/home" component={HomePage} />
+                            {/* If we need to pass props to the componet we use following approach of Route */}
+                            <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} />} />
+                            <Route exact path="/about" component={() => <About leaders={this.props.leaders} />} />
+                            <Route path='/menu/:dishId' component={DishWithId} />
+                            <Route path="/contact" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
+                            {/* If URL path does not match anything */}
+                            <Redirect to="/home" />
+                        </Switch>
+                    </CSSTransition>
+                </TransitionGroup>
                 <Footer />
-            </div>
+            </div >
         );
     }
 
