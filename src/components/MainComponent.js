@@ -18,7 +18,7 @@ import { connect } from 'react-redux';
 //adding the actions fuctionality on form submission
 import { actions } from 'react-redux-form';
 //importing the action creators
-import { addComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
+import { postComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
 // react itself calls function with the name mapSateToProps in order to load it from react-redux-store
 const mapStateToProps = state => { // the state argument retunrs the whole redux store
     return {
@@ -30,7 +30,7 @@ const mapStateToProps = state => { // the state argument retunrs the whole redux
 }; // with this, all the data from the redux-store is available in "props"
 // The following functin creates a JS object using prespecified action creators and retun it
 const mapDispatchToProps = (dispatch) => ({
-    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+    postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
     fetchDishes: () => { dispatch(fetchDishes()) }, //fetching the dishes
     fetchComments: () => { dispatch(fetchComments()) }, //fetching the comments
     fetchPromos: () => { dispatch(fetchPromos()) }, //fetching the promotions
@@ -80,7 +80,7 @@ class Main extends Component {
                     // fetching the comments from the redux-store and provide it to the child components
                     comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
                     commentsFetchErrorMessages={this.props.comments.errorMessages}
-                    addComment={this.props.addComment} />
+                    postComment={this.props.postComment} />
             )
         }
 

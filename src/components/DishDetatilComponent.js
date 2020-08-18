@@ -78,7 +78,14 @@ class CommentForm extends Component {
 
     handleCommentSubmission(values) {
         this.toggleCommentModal();
-        this.props.addComment(this.props.dishId, values.rating, values.fullName, values.message)
+        // applying jugaar to deal with the value of rating being 'undefined' when untouched '5'
+        let gotRating = values.rating;
+        if (gotRating === undefined) {
+            gotRating = 5;
+            this.props.postComment(this.props.dishId, gotRating, values.fullName, values.message)
+        } else {
+            this.props.postComment(this.props.dishId, gotRating, values.fullName, values.message)
+        }
     };
 
     render() {
@@ -99,7 +106,8 @@ class CommentForm extends Component {
                                 <Label htmlFor='rating' md={2}><h5>Rating</h5></Label>
                                 <Col md={{ size: 12, offset: 0.5 }}>
                                     <Control.select model=".rating" name="rating"
-                                        className='form-control'>
+                                        className='form-control'
+                                        id='rating'>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -220,7 +228,7 @@ const DishDetail = (props) => {
 
                         {/* Rendering the Button and form to add the Comments */}
                         <CommentForm
-                            addComment={props.addComment}
+                            postComment={props.postComment}
                             dishId={props.dish.id} />
                     </div>
                 </div >
